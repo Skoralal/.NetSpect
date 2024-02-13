@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:Class="MauiApp1.Views.SubjectSpace"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+             x:DataType="viewmodel:SubjectSpaceViewModel"
+             xmlns:service="clr-namespace:MauiApp1.Service">
+            
+    <Grid RowDefinitions="Auto,*,Auto"
+          BackgroundColor="DarkRed">
+        <VerticalStackLayout Grid.Row="0">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer CommandParameter="{Binding Subject}"
+                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubjectSpaceViewModel}}, Path=NewDataCommand}"/>
+            </VerticalStackLayout.GestureRecognizers>
+            <Label Text="{Binding Subject.SubjectName}" TextColor="White"/>
+            <Label Text="{Binding Subject.SubjectDescription}" TextColor="White"/>
+        </VerticalStackLayout>
+
+        <CollectionView
+            ItemsSource="{Binding Subject.SubjectData}"
+            Margin="3"
+            Grid.Row="1">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:SubjectData">
+                    <ScrollView>
+                        <VerticalStackLayout Margin="3">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubjectSpaceViewModel}}, Path=GoToEditCommand}"/>
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Label Text="{Binding Timestamp}" FontSize="Large" Background="Black" TextColor="White"/>
+                            <Label Text="{Binding Text}" FontSize="Default" Background="Black" TextColor="White"/>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <CollectionView
+                        ItemsSource="{Binding Subject}"
+                        Margin="3"
+                        Grid.Row="2">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:Subject">
+                    <VerticalStackLayout Margin="3">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SubjectSpaceViewModel}}, Path=NewDataCommand}"/>
+                            </VerticalStackLayout.GestureRecognizers>
+                        <Label Text="aboba"
+                               TextColor="White"></Label>
+                            <Label Text="{Binding SubjectName}" FontSize="Default" Background="Black" TextColor="White"/>
+                        </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+             x:DataType="viewmodel:VMmain"
+             Title="{Binding Title}"
+             x:Class="MauiApp1.Views.Home">
+    <Grid RowDefinitions="*,Auto,Auto">
+        <CollectionView BackgroundColor="DarkRed"
+                        ItemsSource="{Binding Subjects}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Subject">
+                    
+                    <VerticalStackLayout Margin="0.27" BackgroundColor="Black">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VMmain}}, Path=OpenWorkspaceCommand}"/>
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Label Text="{Binding SubjectName}" FontSize="Large" TextColor="White"/>
+                        <Label Text="{Binding SubjectDescription}" TextColor="White"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1"
+                Command="{Binding GetSubjectsCommand}"
+                IsVisible="{Binding Notloaded}"
+                Text="Get subjects"
+                BackgroundColor="Black"
+                TextColor="White">
+        </Button>
+        <Button Grid.Row="2"
+                Command="{Binding StoreSubjectsCommand}"
+                CommandParameter="{Binding Subjects}"
+                IsVisible="{Binding Loaded}"
+                Text="Save subjects"
+                BackgroundColor="Black"
+                TextColor="White">
+        </Button>
+    </Grid>
+</ContentPage>

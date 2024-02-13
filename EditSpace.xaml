@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp1.Models"
+             x:Class="MauiApp1.Views.EditSpace"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+             x:DataType="viewmodel:EditSpaceViewModel"
+             Title="{Binding SubjectData.Timestamp}"
+             >
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoBackCommand}"/>
+    </Shell.BackButtonBehavior>
+    <Grid RowDefinitions="Auto,*"
+          BackgroundColor="Black">
+        <Editor x:Name="entry"
+       Placeholder="Enter text"
+               Keyboard="Default"
+               HeightRequest="280"
+                Text="{Binding SubjectData.Text}"
+                BackgroundColor="Black"
+                TextColor="White"/>
+    </Grid>
+
+</ContentPage>
